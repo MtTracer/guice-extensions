@@ -1,4 +1,4 @@
-package com.thirdpower.guice_extensions.provisionchainscope;
+package com.thirdpower.guice_extensions.provisionscope;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
