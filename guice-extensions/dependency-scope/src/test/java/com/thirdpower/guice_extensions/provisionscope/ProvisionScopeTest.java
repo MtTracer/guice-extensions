@@ -254,7 +254,10 @@ public class ProvisionScopeTest {
 		// TODO test is non-deterministic - bruteforce testing parallel
 		// invocations
 
-		final int nThreads = 100;
+		final int numInjectors = 100;
+		final int invocationsPerInjector = 5;
+		final int nThreads = numInjectors * invocationsPerInjector;
+
 		final CountDownLatch barrier = new CountDownLatch(nThreads + 1);
 
 		final AbstractModule testModule = new AbstractModule() {
@@ -269,23 +272,26 @@ public class ProvisionScopeTest {
 
 		final ExecutorService threadPool = Executors.newFixedThreadPool(nThreads);
 		final List<CompletableFuture<A>> futureAs = Lists.newArrayListWithCapacity(nThreads);
-		for (int i = 0; i < nThreads; i++) {
+		for (int i = 0; i < numInjectors; i++) {
 			final Injector injector = Guice.createInjector(new ProvisionScopeModule(), testModule);
-			final CompletableFuture<A> futureA = CompletableFuture.supplyAsync(() -> injector.getInstance(A.class),
-					threadPool);
-			futureAs.add(futureA);
+			for (int j = 0; j < invocationsPerInjector; j++) {
+				final CompletableFuture<A> futureA = CompletableFuture.supplyAsync(() -> injector.getInstance(A.class),
+						threadPool);
+				futureAs.add(futureA);
+			}
 		}
 
 		// start porovisioning when all threads are waiting in AProvider and we
 		// reached this point here
 		barrier.countDown();
-		CompletableFuture.allOf(futureAs.toArray(new CompletableFuture[nThreads]))
+		final int numFutures = futureAs.size();
+		CompletableFuture.allOf(futureAs.toArray(new CompletableFuture[numFutures]))
 				.join();
 
-		for (int i = 0; i < nThreads - 1; i++) {
-			for (int j = i + 1; j < nThreads; j++) {
-				final A a1 = futureAs.get(i)
-						.get();
+		for (int i = 0; i < numFutures - 1; i++) {
+			final A a1 = futureAs.get(i)
+					.get();
+			for (int j = i + 1; j < numFutures; j++) {
 				final A a2 = futureAs.get(j)
 						.get();
 				assertInstancesDiffer(a1, a2);
