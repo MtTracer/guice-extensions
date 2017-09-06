@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>dependency-scope</artifactId>
+  <artifactId>manual-scope</artifactId>
   
   <dependencies>
 		<dependency>
@@ -25,5 +25,5 @@
 		</dependency>
   </dependencies>
 
-  <name>dependency-scope</name>
+  <name>manual-scope</name>
 </project>

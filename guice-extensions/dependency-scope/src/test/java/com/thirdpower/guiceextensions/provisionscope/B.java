@@ -1,4 +1,4 @@
-package com.thirdpower.guice_extensions.provisionscope;
+package com.thirdpower.guiceextensions.provisionscope;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.thirdpower.guice_extensions.provisionscope;
+package com.thirdpower.guiceextensions.provisionscope;
 
 import com.google.inject.Key;
 import com.google.inject.Provider;

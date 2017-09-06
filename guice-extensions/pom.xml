@@ -7,16 +7,31 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+	<properties>
+		<guice.version>4.1.0</guice.version>
+	</properties>
+
 	<modules>
 		<module>dependency-scope</module>
+		<module>manual-scope</module>
+		<module>fallback-scope</module>
 	</modules>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
-				<version>4.1.0</version>
+				<version>${guice.version}</version>
 			</dependency>
 
 			<dependency>
@@ -30,6 +45,7 @@
 				<groupId>com.google.truth</groupId>
 				<artifactId>truth</artifactId>
 				<version>0.30</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -50,4 +66,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
 </project>

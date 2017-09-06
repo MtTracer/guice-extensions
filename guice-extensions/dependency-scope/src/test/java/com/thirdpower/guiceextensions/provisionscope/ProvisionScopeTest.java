@@ -1,4 +1,4 @@
-package com.thirdpower.guice_extensions.provisionscope;
+package com.thirdpower.guiceextensions.provisionscope;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -24,6 +24,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.ProvisionException;
+import com.thirdpower.guiceextensions.provisionscope.ProvisionScope;
+import com.thirdpower.guiceextensions.provisionscope.ProvisionScopeModule;
 
 /**
  * Unit test for simple App.
